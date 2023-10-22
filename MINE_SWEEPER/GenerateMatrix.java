@@ -71,9 +71,8 @@ public class GenerateMatrix {
         int mines = 20;
 
         int arr[][] = genMatrix(n, mines);
-        // print(arr);
+
         validate(n, mines, arr);
-        // System.out.println();
-        // print(arr);
+
     }
 }
