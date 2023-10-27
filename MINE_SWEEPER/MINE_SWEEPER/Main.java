@@ -22,7 +22,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ArrayList<pair> pairArr = new ArrayList<>();
+
+        Set<String> pairArr = new HashSet<>();
+
         Scanner sc = new Scanner(System.in);
 
         boolean play = true;
@@ -30,10 +32,12 @@ public class Main {
         int mines = 10;
 
         GenerateMatrix gm = new GenerateMatrix(n, mines);
+
         // ChoiceTaking ct = new ChoiceTaking();
 
         int arr[][] = gm.genMatrix(n, mines);
         gm.validate(n, mines, arr);
+        boolean disparr[][] = gm.genShowMatrix(mines);
 
         // Deep Cloning
         int arrClone[][] = Arrays.copyOf(arr, arr.length);
@@ -41,9 +45,9 @@ public class Main {
             arrClone[i] = Arrays.copyOf(arr[i], arr[i].length);
         }
 
-        gm.print(arr);
+        // gm.printArray(arr, disparr,pairArr,false,row,col);
         System.out.println();
-        gm.print(arrClone);
+        // gm.printArray(arrClone, disparr,pairArr,false,row,col);
 
         while (play) {
 
@@ -51,11 +55,14 @@ public class Main {
             int row = sc.nextInt();
             int col = sc.nextInt();
 
+            String selection = row + "," + col;
             // Store The users input
-            pairArr.add(new pair(row, col));
+            pairArr.add(selection);
 
             if (arrClone[row][col] == 9) {
-                // ct.RevealPrevious(arrClone, pairArr, row, col, true);
+
+                disparr[row][col] = true;
+                gm.printArray(arrClone, disparr, pairArr, true, row, col);
                 System.out.println("Better Luck NextTime");
 
                 play = false;
@@ -72,7 +79,7 @@ public class Main {
             }
 
             else {
-                // ct.RevealPrevious(arrClone, pairArr, row, col, false);
+                gm.printArray(arrClone, disparr, pairArr, false, row, col);
             }
 
             if (pairArr.size() == n * n) {

@@ -11,6 +11,11 @@ class GenerateMatrix {
         this.mines = mines;
     }
 
+    public boolean[][] genShowMatrix(int n) {
+        boolean arr[][] = new boolean[n][n];
+        return arr;
+    }
+
     public int[][] genMatrix(int n1, int mines1) {
         int n = n1;
         int mines = mines1;
@@ -65,13 +70,31 @@ class GenerateMatrix {
         }
     }
 
-    public void print(int[][] arr) {
+    public void printArray(int[][] arr, boolean[][] disparr, Set<String> pairArr, boolean flag, int row, int col) {
+        if (arr[row][col] == 0) {
+
+        }
+        if (flag == true) {
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < arr.length; j++) {
+                    if (arr[i][j] == 9)
+                        pairArr.add(i + "," + j);
+                }
+            }
+        }
+        for (String s : pairArr) {
+            String sarr[] = s.split(",");
+            int i = Integer.parseInt(sarr[0]);
+            int j = Integer.parseInt(sarr[1]);
+            disparr[i][j] = true;
+        }
         for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                System.out.print(arr[i][j] + " ");
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(disparr[i][j] ? arr[i][j] + " " : "* ");
             }
             System.out.println();
         }
+
     }
 
     // public static void main(String[] args) {
