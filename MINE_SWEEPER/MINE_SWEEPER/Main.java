@@ -30,7 +30,7 @@ public class Main {
         int mines = 10;
 
         GenerateMatrix gm = new GenerateMatrix(n, mines);
-        ChoiceTaking ct = new ChoiceTaking();
+        // ChoiceTaking ct = new ChoiceTaking();
 
         int arr[][] = gm.genMatrix(n, mines);
         gm.validate(n, mines, arr);
@@ -55,7 +55,7 @@ public class Main {
             pairArr.add(new pair(row, col));
 
             if (arrClone[row][col] == 9) {
-                ct.RevealPrevious(arrClone, pairArr, row, col, true);
+                // ct.RevealPrevious(arrClone, pairArr, row, col, true);
                 System.out.println("Better Luck NextTime");
 
                 play = false;
@@ -72,7 +72,7 @@ public class Main {
             }
 
             else {
-                ct.RevealPrevious(arrClone, pairArr, row, col, false);
+                // ct.RevealPrevious(arrClone, pairArr, row, col, false);
             }
 
             if (pairArr.size() == n * n) {
