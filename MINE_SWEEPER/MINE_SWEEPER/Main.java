@@ -2,6 +2,15 @@
 
 import java.util.*;
 
+class pair {
+    int row, col;
+
+    pair(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+
 public class Main {
     public static int[][] revertArr(int[][] mainArr, int arr[][]) {
         int n = arr.length;
@@ -13,12 +22,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        ArrayList<pair> pairArr = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         boolean play = true;
         int n = 9;
         int mines = 10;
+
         GenerateMatrix gm = new GenerateMatrix(n, mines);
+        ChoiceTaking ct = new ChoiceTaking();
 
         int arr[][] = gm.genMatrix(n, mines);
         gm.validate(n, mines, arr);
@@ -34,10 +46,16 @@ public class Main {
         gm.print(arrClone);
 
         while (play) {
+
             System.out.println("enter row,col values seperately");
             int row = sc.nextInt();
             int col = sc.nextInt();
+
+            // Store The users input
+            pairArr.add(new pair(row, col));
+
             if (arrClone[row][col] == 9) {
+                ct.RevealPrevious(arrClone, pairArr, row, col, true);
                 System.out.println("Better Luck NextTime");
 
                 play = false;
@@ -51,6 +69,16 @@ public class Main {
                 } else {
                     break;
                 }
+            }
+
+            else {
+                ct.RevealPrevious(arrClone, pairArr, row, col, false);
+            }
+
+            if (pairArr.size() == n * n) {
+                System.out.println("Hooray you Have Won");
+                play = false;
+                System.exit(0);
             }
 
         }
