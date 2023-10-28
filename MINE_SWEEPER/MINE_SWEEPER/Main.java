@@ -21,6 +21,12 @@ public class Main {
         return arr;
     }
 
+    public static boolean[][] revertArr(boolean[][] mainArr) {
+        int n = mainArr.length;
+        mainArr = new boolean[n][n];
+        return mainArr;
+    }
+
     public static void main(String[] args) {
 
         Set<String> pairArr = new HashSet<>();
@@ -47,22 +53,24 @@ public class Main {
 
         // gm.printArray(arr, disparr,pairArr,false,row,col);
         System.out.println();
-        // gm.printArray(arrClone, disparr,pairArr,false,row,col);
+        // gm.printArray(arrClone, disparr, pairArr, false, 0, 0);
 
         while (play) {
 
             System.out.println("enter row,col values seperately");
             int row = sc.nextInt();
             int col = sc.nextInt();
+            // System.out.println(row + " " + col);
 
             String selection = row + "," + col;
-            // Store The users input
+            // Store The users input in set
             pairArr.add(selection);
+            disparr[row][col] = true;
 
             if (arrClone[row][col] == 9) {
 
-                disparr[row][col] = true;
-                gm.printArray(arrClone, disparr, pairArr, true, row, col);
+                gm.printall(arrClone, disparr, pairArr);
+
                 System.out.println("Better Luck NextTime");
 
                 play = false;
@@ -73,13 +81,15 @@ public class Main {
                     play = true;
                     // again to initial array
                     arrClone = revertArr(arr, arrClone);
+                    disparr = revertArr(disparr);
+                    pairArr.clear();
                 } else {
                     break;
                 }
             }
 
             else {
-                gm.printArray(arrClone, disparr, pairArr, false, row, col);
+                gm.printArray(arrClone, disparr, pairArr, row, col);
             }
 
             if (pairArr.size() == n * n) {
