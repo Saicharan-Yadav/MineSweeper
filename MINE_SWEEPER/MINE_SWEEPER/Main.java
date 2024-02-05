@@ -1,3 +1,4 @@
+// package mines;
 // package MINE_SWEEPER;
 
 import java.util.*;
@@ -12,6 +13,7 @@ class pair {
 }
 
 public class Main {
+    // done
     public static int[][] revertArr(int[][] mainArr, int arr[][]) {
         int n = arr.length;
         arr = Arrays.copyOf(mainArr, mainArr.length);
@@ -34,8 +36,24 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         boolean play = true;
-        int n = 9;
-        int mines = 10;
+        int n = 0;
+        int mines = 0;
+
+        // difficulty
+        System.out.println("Choose Difficulty: \n *)Hard \n *)Medium \n *)Easy");
+        String difficulty = sc.nextLine();
+        if (difficulty.toLowerCase().equals("hard")) {
+            // board size and mines
+            n = 30;
+            mines = 99;
+
+        } else if (difficulty.toLowerCase().equals("medium")) {
+            n = 9;
+            mines = 9;
+        } else {
+            n = 6;
+            mines = 6;
+        }
 
         GenerateMatrix gm = new GenerateMatrix(n, mines);
 
@@ -43,6 +61,8 @@ public class Main {
 
         int arr[][] = gm.genMatrix(n, mines);
         gm.validate(n, mines, arr);
+
+        // SIMILAR TO VISITED ARR
         boolean disparr[][] = gm.genShowMatrix(mines);
 
         // Deep Cloning
@@ -57,12 +77,32 @@ public class Main {
 
         while (play) {
 
+            System.out.println(pairArr);
+            // System.out.println(Arrays.toString(disparr));
+
             System.out.println("enter row,col values seperately");
             int row = sc.nextInt();
             int col = sc.nextInt();
-            // System.out.println(row + " " + col);
-
             String selection = row + "," + col;
+
+            while (row < 0 || row >= n || col < 0 || col >= n || disparr[row][col]) {
+                if (row < 0 || row >= n || col < 0 || col >= n) {
+                    System.out.println("Invalid Input");
+                    System.out.println("*) row ,col < " + n);
+                } else if (disparr[row][col]) {
+                    System.out.println(" Already visited");
+                }
+                System.out.println("Re-enter row,col values seperately");
+
+                // System.out.println("Invalid Input");
+                // System.out.println("*) row ,col < " + n + " and not visited");
+                // System.out.println("Re-enter row,col values seperately");
+
+                row = sc.nextInt();
+                col = sc.nextInt();
+                selection = row + "," + col;
+            }
+
             // Store The users input in set
             pairArr.add(selection);
             disparr[row][col] = true;
